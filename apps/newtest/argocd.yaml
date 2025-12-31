@@ -1,0 +1,40 @@
+#**argocd.yaml**
+#In order to deploy Applications we use [ArgoCD ApplicationSets](https://argo-cd.readthedocs.io/en/stable/user-guide/application-set/).
+#ApplicationSet controller monitors `provisioners/argo/inventories/` sub paths in this repo and will generate and ArgoCD application for every `argocd.yaml` discovered.
+#If the file is empty, it will inherit all default options from ApplicationSet (ex: automated sync policy, )
+#
+#argocd:
+#  # (Optional): If not specified will create a namespace with folder name and app there
+#  namespace: myNamespace
+#
+#  source:
+#    # (Optional): If not specified will assume this repo URL
+#    repoURL: https://github.com/example/repo.git
+#
+#    # (Optional): If not specified will assume the path in this repo
+#    path: .
+#
+#    # (Optional): If not specified will assume main branch of this repo
+#    targetRevision: HEAD
+#
+#    helm:
+#      # (Optional): If not specified will assume folder name
+#      releaseName: example
+#
+#      # (Optional) List of values for helm chart. For parent chart method create a values.yaml file
+#      values: |
+#        key: value
+#
+#  # (Optional): Use this setting to configure Diff customization
+#  # https://argo-cd.readthedocs.io/en/stable/user-guide/diffing/
+#  ignoreDifferences:
+#    # Example
+#    - group: admissionregistration.k8s.io
+#      kind: MutatingWebhookConfiguration
+#      jsonPointers:
+#        - /webhooks/0/clientConfig/caBundle
+#
+#  syncPolicy:
+#    # (Optional) If not specified default is true
+#    automated: true
+

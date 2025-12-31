@@ -1,0 +1,45 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: platform-lab
+  namespace: argocd
+spec:
+  generators:
+    - matrix:
+        generators:
+          - git:
+              repoURL: https://github.com/kashya2/platform-lab.git
+              revision: main
+              files:
+                - path: apps/*/argocd.yaml
+          - list:
+              elements:
+                - name: kind
+                  server: https://kubernetes.default.svc
+                  namespace: platform
+  template:
+    metadata:
+      name: '{{values.name}}-{{path.basename}}'
+      labels:
+        env: '{{values.name}}'
+        component: '{{path.basename}}'
+        managed-by: applicationset
+    spec:
+      project: default
+
+      source:
+        repoURL: https://github.com/kashya2/platform-lab.git
+        targetRevision: main
+        path: '{{path}}'
+
+      destination:
+        server: '{{values.server}}'
+        namespace: '{{values.namespace}}'
+
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true
+

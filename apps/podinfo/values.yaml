@@ -8,4 +8,10 @@ podinfo:
     message: "Hello from GitOps"
 
   ingress:
-    enabled: false
+    enabled: true
+    className: nginx
+    hosts:
+      - host: podinfo.localhost
+        paths:
+          - path: /
+            pathType: Prefix

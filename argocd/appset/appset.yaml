@@ -4,6 +4,8 @@ metadata:
   name: platform-lab
   namespace: argocd
 spec:
+  goTemplate: true
+
   generators:
     - matrix:
         generators:
@@ -16,22 +18,40 @@ spec:
               elements:
                 - name: kind
                   server: https://kubernetes.default.svc
-                  namespace: default
+                  labels:
+                    environment: lab
+                    region: local
+                    stack: platform
+                    provider: kind
+
   template:
     metadata:
-      name: '{{name}}-{{path.basename}}'
+      name: "{{ .path.basename }}-{{ .name }}"
+      namespace: argocd
+      labels:
+        service: "{{ .path.basename }}"
+        environment: "{{ .labels.environment }}"
+        provider: "{{ .labels.provider }}"
+
     spec:
-      project: default
-      source:
-        repoURL: https://github.com/kashya2/platform-lab.git
-        targetRevision: main
-        path: '{{path}}'
+      project: '{{ .argocd.project | default "default" }}'
+
       destination:
-        server: '{{server}}'
-        namespace: '{{namespace}}'
+        server: "{{ .server }}"
+        namespace: "{{ .argocd.namespace | default .path.basename }}"
+
+      source:
+        repoURL: '{{ .argocd.source.repoURL | default "https://github.com/kashya2/platform-lab.git" }}'
+        targetRevision: '{{ .argocd.source.targetRevision | default "main" }}'
+        path: '{{ .argocd.source.path | default .path.path }}'
+
+  templatePatch: |
+    spec:
+      {{- if (ne ((((.argocd).syncPolicy).automated).enabled) false) }}
       syncPolicy:
         automated:
           prune: true
           selfHeal: true
-        syncOptions:
-          - CreateNamespace=true
+      {{- end }}
+      syncOptions:
+        - CreateNamespace=true

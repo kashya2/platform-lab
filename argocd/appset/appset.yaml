@@ -18,11 +18,6 @@ spec:
               elements:
                 - name: kind
                   server: https://kubernetes.default.svc
-                  labels:
-                    environment: lab
-                    region: local
-                    stack: platform
-                    provider: kind
 
   template:
     metadata:

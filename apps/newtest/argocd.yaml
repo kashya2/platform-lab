@@ -36,4 +36,5 @@ argocd:
 #
  syncPolicy:
    # (Optional) If not specified default is true
-   automated: false
+   automated:
+      enabled: false

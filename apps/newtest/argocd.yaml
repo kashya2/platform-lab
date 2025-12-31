@@ -5,7 +5,7 @@
 #
 argocd:
 #  # (Optional): If not specified will create a namespace with folder name and app there
- namespace: newtest
+ namespace: newtest1
 #
 #  source:
 #    # (Optional): If not specified will assume this repo URL

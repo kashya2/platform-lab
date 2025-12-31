@@ -16,30 +16,22 @@ spec:
               elements:
                 - name: kind
                   server: https://kubernetes.default.svc
-                  namespace: platform
+                  namespace: default
   template:
     metadata:
-      name: '{{values.name}}-{{path.basename}}'
-      labels:
-        env: '{{values.name}}'
-        component: '{{path.basename}}'
-        managed-by: applicationset
+      name: '{{name}}-{{path.basename}}'
     spec:
       project: default
-
       source:
         repoURL: https://github.com/kashya2/platform-lab.git
         targetRevision: main
         path: '{{path}}'
-
       destination:
-        server: '{{values.server}}'
-        namespace: '{{values.namespace}}'
-
+        server: '{{server}}'
+        namespace: '{{namespace}}'
       syncPolicy:
         automated:
           prune: true
           selfHeal: true
         syncOptions:
           - CreateNamespace=true
-

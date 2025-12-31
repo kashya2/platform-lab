@@ -34,7 +34,7 @@
 #      jsonPointers:
 #        - /webhooks/0/clientConfig/caBundle
 #
-#  syncPolicy:
-#    # (Optional) If not specified default is true
-#    automated: true
+ syncPolicy:
+   # (Optional) If not specified default is true
+   automated: false
 

@@ -1,0 +1,11 @@
+podinfo:
+  replicaCount: 2
+
+  service:
+    type: ClusterIP
+
+  ui:
+    message: "Hello from GitOps"
+
+  ingress:
+    enabled: false

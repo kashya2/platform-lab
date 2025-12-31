@@ -3,9 +3,9 @@
 #ApplicationSet controller monitors `provisioners/argo/inventories/` sub paths in this repo and will generate and ArgoCD application for every `argocd.yaml` discovered.
 #If the file is empty, it will inherit all default options from ApplicationSet (ex: automated sync policy, )
 #
-#argocd:
+argocd:
 #  # (Optional): If not specified will create a namespace with folder name and app there
-#  namespace: myNamespace
+ namespace: newtest
 #
 #  source:
 #    # (Optional): If not specified will assume this repo URL

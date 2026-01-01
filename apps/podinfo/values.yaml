@@ -1,5 +1,5 @@
 podinfo:
-  replicaCount: 2
+  replicaCount: 10
 
   service:
     type: ClusterIP
@@ -15,3 +15,5 @@ podinfo:
         paths:
           - path: /
             pathType: Prefix
+  podDisruptionBudget:
+    maxUnavailable: 1

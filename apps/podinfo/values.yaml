@@ -1,5 +1,5 @@
 podinfo:
-  replicaCount: 2
+  replicaCount: 10
 
   service:
     type: ClusterIP

@@ -39,8 +39,6 @@ spec:
         repoURL: '{{ .argocd.source.repoURL | default "https://github.com/kashya2/platform-lab.git" }}'
         targetRevision: '{{ .argocd.source.targetRevision | default "main" }}'
         path: '{{ .argocd.source.path | default .path.path }}'
-        helm:
-          releaseName: '{{ .argocd.source.helm.releaseName | default .path.basename }}'
 
   templatePatch: |
     spec:
